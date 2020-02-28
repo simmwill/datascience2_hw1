@@ -96,16 +96,17 @@ Fitting model:
 
 set.seed(1)
 
-#ctrl_lm = trainControl(method = "none")
-
 ## trainControl function
 ctrl_cv = trainControl(method = "repeatedcv", number = 10, repeats = 10)
+
+## trainControl for lm - don't need to tune anything
+lm_cv = trainControl(method = "none")
 
 lm_model =
   train(Solubility~.,
         data = train,
         method = "lm",
-        trControl = ctrl_cv    ## using CV so can put in resample table for part D
+        trControl = lm_cv    
   )
 
 ```
@@ -218,7 +219,7 @@ lasso_model$bestTune
 
 Calculating MSE on test data and investigating number of nonzero coefficient estimates:
 
-```{r c_mse}
+```{r c_mse, warning = FALSE, message = FALSE}
 
 set.seed(1)
 
